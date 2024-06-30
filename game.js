@@ -25,6 +25,31 @@ function playSound(name) {
     audio.play();
 }
 
+document.querySelectorAll(".btn").forEach(btn => {
+    btn.addEventListener('click', function() {
+        let userChosenColor = this.id;
+        userClickedPattern.push(userChosenColor);
+
+        playSound(userChosenColor);
+        animatePress(userChosenColor);
+
+        checkAnswer(userClickedPattern.length - 1);
+    });
+});
+
+function nextSequence() {
+    userClickedPattern = [];
+    level++;
+    document.querySelector("#level-title").textContent = Level ${level};
+
+    let randomNumber = Math.floor(Math.random() * 4);
+    let randomChosenColor = buttonColors[randomNumber];
+    gamePattern.push(randomChosenColor);
+
+    flashButton(randomChosenColor);
+
+    playSound(randomChosenColor);
+}
 
 
 
