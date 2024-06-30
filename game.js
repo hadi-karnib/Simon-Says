@@ -12,7 +12,7 @@ document.addEventListener('keypress', () => {
         started = true
     }
 })
-function flashButton(color) {
+function flash(color) {
     const button = document.getElementById(color);
     button.classList.add("pressed");
     setTimeout(() => {
@@ -31,7 +31,7 @@ document.querySelectorAll(".btn").forEach(btn => {
         userClickedPattern.push(userChosenColor);
 
         playSound(userChosenColor);
-        animatePress(userChosenColor);
+        animations(userChosenColor);
 
         checkAnswer(userClickedPattern.length - 1);
     });
@@ -46,9 +46,39 @@ function nextSequence() {
     let randomChosenColor = buttonColors[randomNumber];
     gamePattern.push(randomChosenColor);
 
-    flashButton(randomChosenColor);
+    flash(randomChosenColor);
 
     playSound(randomChosenColor);
+}
+
+function checkAnswer(currentLevel) {
+    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+        if (userClickedPattern.length === gamePattern.length){
+            setTimeout(() => {
+                nextSequence();
+            }, 1000);
+        }
+    } else {
+        playSound("wrong");
+        document.querySelector("body").classList.add("game-over");
+        document.querySelector("#level-title").textContent = "Game Over, Press Any Key to Restart";
+        setTimeout(() => {
+            document.querySelector("body").classList.remove("game-over");
+        }, 200);
+        reRun();
+    }
+}
+
+function animations(currentColor) {
+    let button = document.getElementById(currentColor);
+    button.classList.add("pressed");
+    setTimeout(() => button.classList.remove("pressed"), 100);
+}
+
+function reRun() {
+    level = 0;
+    gamePattern = [];
+    started = false;
 }
 
 
