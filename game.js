@@ -36,6 +36,12 @@ document.querySelectorAll(".btn").forEach((btn) => {
   });
 });
 
+function animations(currentColor) {
+  let button = document.getElementById(currentColor);
+  button.classList.add("pressed");
+  setTimeout(() => button.classList.remove("pressed"), 100);
+}
+
 function nextSequence() {
   userClickedPattern = [];
   level++;
@@ -50,8 +56,8 @@ function nextSequence() {
   playSound(randomChosenColor);
 }
 
-function checkAnswer(currentLevel) {
-  if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+function checkAnswer(answer) {
+  if (gamePattern[answer] === userClickedPattern[answer]) {
     if (userClickedPattern.length === gamePattern.length) {
       setTimeout(() => {
         nextSequence();
@@ -67,12 +73,6 @@ function checkAnswer(currentLevel) {
     }, 200);
     reRun();
   }
-}
-
-function animations(currentColor) {
-  let button = document.getElementById(currentColor);
-  button.classList.add("pressed");
-  setTimeout(() => button.classList.remove("pressed"), 100);
 }
 
 function reRun() {
