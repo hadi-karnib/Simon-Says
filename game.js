@@ -12,4 +12,20 @@ document.addEventListener('keypress', () => {
         started = true
     }
 })
+function flashButton(color) {
+    const button = document.getElementById(color);
+    button.classList.add("pressed");
+    setTimeout(() => {
+        button.classList.remove("pressed");
+    }, 200);
+}
+
+function playSound(name) {
+    let audio = new Audio(sounds/${name}.mp3);
+    audio.play();
+}
+
+
+
+
 
